@@ -1,8 +1,6 @@
-﻿#nullable disable
-
-namespace EvolutionAPI.Models
+﻿namespace EvolutionAPI.DTOs
 {
-    public partial class Pedido
+    public class PedidoDTO
     {
         public int PedId { get; set; }
         public int? PedUsu { get; set; }

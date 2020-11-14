@@ -11,25 +11,25 @@ namespace EvolutionAPI.Controllers
     [ApiController]
     public class PedidosController : ControllerBase
     {
-        private readonly PedidoContext _context;
+        private readonly EvolutionContext _context;
 
-        public PedidosController(PedidoContext context)
+        public PedidosController(EvolutionContext context)
         {
             _context = context;
         }
 
-        // GET: api/Pedidos
+        // GET: api/Pedidoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pedido>>> Getpedidos()
+        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedidos()
         {
-            return await _context.pedidos.ToListAsync();
+            return await _context.Pedidos.ToListAsync();
         }
 
-        // GET: api/Pedidos/5
+        // GET: api/Pedidoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pedido>> GetPedido(int id)
         {
-            var pedido = await _context.pedidos.FindAsync(id);
+            var pedido = await _context.Pedidos.FindAsync(id);
 
             if (pedido == null)
             {
@@ -39,12 +39,12 @@ namespace EvolutionAPI.Controllers
             return pedido;
         }
 
-        // PUT: api/Pedidos/5
+        // PUT: api/Pedidoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPedido(int id, Pedido pedido)
         {
-            if (id != pedido.PedID)
+            if (id != pedido.PedId)
             {
                 return BadRequest();
             }
@@ -70,28 +70,28 @@ namespace EvolutionAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Pedidos
+        // POST: api/Pedidoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Pedido>> PostPedido(Pedido pedido)
         {
-            _context.pedidos.Add(pedido);
+            _context.Pedidos.Add(pedido);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetPedido), new { id = pedido.PedID }, pedido);
+            return CreatedAtAction(nameof(GetPedido), new { id = pedido.PedId }, pedido);
         }
 
-        // DELETE: api/Pedidos/5
+        // DELETE: api/Pedidoes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePedido(int id)
         {
-            var pedido = await _context.pedidos.FindAsync(id);
+            var pedido = await _context.Pedidos.FindAsync(id);
             if (pedido == null)
             {
                 return NotFound();
             }
 
-            _context.pedidos.Remove(pedido);
+            _context.Pedidos.Remove(pedido);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -99,7 +99,7 @@ namespace EvolutionAPI.Controllers
 
         private bool PedidoExists(int id)
         {
-            return _context.pedidos.Any(e => e.PedID == id);
+            return _context.Pedidos.Any(e => e.PedId == id);
         }
     }
 }

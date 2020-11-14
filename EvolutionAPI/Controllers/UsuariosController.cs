@@ -11,25 +11,25 @@ namespace EvolutionAPI.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly UsuarioContext _context;
+        private readonly EvolutionContext _context;
 
-        public UsuariosController(UsuarioContext context)
+        public UsuariosController(EvolutionContext context)
         {
             _context = context;
         }
 
         // GET: api/Usuarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> Getusuarios()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-            return await _context.usuarios.ToListAsync();
+            return await _context.Usuarios.ToListAsync();
         }
 
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.usuarios.FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
 
             if (usuario == null)
             {
@@ -44,7 +44,7 @@ namespace EvolutionAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
-            if (id != usuario.UsuID)
+            if (id != usuario.UsuId)
             {
                 return BadRequest();
             }
@@ -75,23 +75,23 @@ namespace EvolutionAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-            _context.usuarios.Add(usuario);
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.UsuID }, usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.UsuId }, usuario);
         }
 
         // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _context.usuarios.FindAsync(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
             }
 
-            _context.usuarios.Remove(usuario);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -99,7 +99,7 @@ namespace EvolutionAPI.Controllers
 
         private bool UsuarioExists(int id)
         {
-            return _context.usuarios.Any(e => e.UsuID == id);
+            return _context.Usuarios.Any(e => e.UsuId == id);
         }
     }
 }

@@ -11,25 +11,25 @@ namespace EvolutionAPI.Controllers
     [ApiController]
     public class ProductosController : ControllerBase
     {
-        private readonly ProductoContext _context;
+        private readonly EvolutionContext _context;
 
-        public ProductosController(ProductoContext context)
+        public ProductosController(EvolutionContext context)
         {
             _context = context;
         }
 
-        // GET: api/Productos
+        // GET: api/Productoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Producto>>> Getproductos()
+        public async Task<ActionResult<IEnumerable<Producto>>> GetProductos()
         {
-            return await _context.productos.ToListAsync();
+            return await _context.Productos.ToListAsync();
         }
 
-        // GET: api/Productos/5
+        // GET: api/Productoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Producto>> GetProducto(int id)
         {
-            var producto = await _context.productos.FindAsync(id);
+            var producto = await _context.Productos.FindAsync(id);
 
             if (producto == null)
             {
@@ -39,12 +39,12 @@ namespace EvolutionAPI.Controllers
             return producto;
         }
 
-        // PUT: api/Productos/5
+        // PUT: api/Productoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProducto(int id, Producto producto)
         {
-            if (id != producto.ProID)
+            if (id != producto.ProId)
             {
                 return BadRequest();
             }
@@ -70,28 +70,28 @@ namespace EvolutionAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Productos
+        // POST: api/Productoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Producto>> PostProducto(Producto producto)
         {
-            _context.productos.Add(producto);
+            _context.Productos.Add(producto);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProducto), new { id = producto.ProID }, producto);
+            return CreatedAtAction(nameof(GetProducto), new { id = producto.ProId }, producto);
         }
 
-        // DELETE: api/Productos/5
+        // DELETE: api/Productoes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProducto(int id)
         {
-            var producto = await _context.productos.FindAsync(id);
+            var producto = await _context.Productos.FindAsync(id);
             if (producto == null)
             {
                 return NotFound();
             }
 
-            _context.productos.Remove(producto);
+            _context.Productos.Remove(producto);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -99,7 +99,7 @@ namespace EvolutionAPI.Controllers
 
         private bool ProductoExists(int id)
         {
-            return _context.productos.Any(e => e.ProID == id);
+            return _context.Productos.Any(e => e.ProId == id);
         }
     }
 }

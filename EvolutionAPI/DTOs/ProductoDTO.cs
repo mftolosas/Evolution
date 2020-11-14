@@ -1,8 +1,6 @@
-﻿#nullable disable
-
-namespace EvolutionAPI.Models
+﻿namespace EvolutionAPI.DTOs
 {
-    public partial class Producto
+    public class ProductoDTO
     {
         public int ProId { get; set; }
         public string ProDesc { get; set; }

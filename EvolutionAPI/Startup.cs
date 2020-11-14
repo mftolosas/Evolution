@@ -1,3 +1,4 @@
+using EvolutionAPI.DTOs;
 using EvolutionAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ namespace EvolutionAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            AutoMapperConfiguration.Configure();
         }
 
         public IConfiguration Configuration { get; }
@@ -20,12 +22,8 @@ namespace EvolutionAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UsuarioContext>(opt =>
-                                               opt.UseInMemoryDatabase("UsuarioList"));
-            services.AddDbContext<ProductoContext>(opt =>
-                                               opt.UseInMemoryDatabase("ProductoList"));
-            services.AddDbContext<PedidoContext>(opt =>
-                                               opt.UseInMemoryDatabase("PedidoList"));
+            services.AddDbContext<EvolutionContext>(opt =>
+                                                    opt.UseSqlServer(Configuration.GetConnectionString("EvolutionContext")));
             services.AddControllers();           
         }
 
